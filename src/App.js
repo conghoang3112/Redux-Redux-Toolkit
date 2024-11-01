@@ -1,13 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import { connect } from "react-redux"
+// import { connect } from "react-redux"
 
 import {
   increaseCounter,
   decreaseCounter,
 } from "./action/actions"
 
+import axios from 'axios';
+
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
 
 function App(props) {
 
@@ -22,6 +25,15 @@ function App(props) {
     // props.increaseCounter();
     dispatch(increaseCounter());
   }
+
+  const fetchAllUser = async () => {
+    const res = await axios.get("http://localhost:8080/users/all");
+    console.log('data',res.data);
+  };
+
+  useEffect(() => {
+    fetchAllUser();
+  }, []);
 
   return (
     <div className="App">
